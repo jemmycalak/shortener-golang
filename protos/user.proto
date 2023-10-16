@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package protos;
+option go_package = "/pbuild";
+
+message UserProto {
+  int64 id = 1;
+  string username = 2;
+  string password = 3;
+}
+
+message CreateUserRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message GetUserByRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message GetUserByIdRequest {
+  int64 id = 1;
+}
+
+message AuthorizeTokenRequest {
+  string accessToken = 1;
+}
+
+message AuthorizeTokenResponse {
+  int64 userId = 1;
+}
+
+service UserServiceProto {
+  rpc CreateUser(CreateUserRequest) returns (UserProto);
+  rpc GetUserBy(GetUserByRequest) returns (UserProto);
+  rpc GetUserById(GetUserByIdRequest) returns (UserProto);
+  rpc AutorizeToken(AuthorizeTokenRequest) returns (AuthorizeTokenResponse);
+}

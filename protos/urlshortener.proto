@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+package protos;
+option go_package = "/pbuild";
+
+message UrlShortenerProto {
+  int64 id = 1;
+  string base_url = 2;
+  string redirect = 3;
+  int64 clicked = 4;
+  int64 user_id = 5;
+}
+
+message GetStatisticByUrlRequest {
+  string base_url = 1;
+  int64 user_id = 2;
+}
+
+message GetStatisticByUrlResponse {
+  int64 all_time = 1;
+  int64 day = 2;
+  int64 week = 3;
+  int64 month = 4;
+}
+
+message SearchByShortUrlRequest {
+  string base_url = 1;
+}
+
+message IncreaseAccessedRequest {
+  string base_url = 1;
+  string ip_address = 2;
+}
+
+service UrlShortenerServiceProto {
+  rpc Create(UrlShortenerProto) returns (UrlShortenerProto);
+  rpc Edit(UrlShortenerProto) returns (UrlShortenerProto);
+  rpc Statistic(GetStatisticByUrlRequest) returns (GetStatisticByUrlResponse);
+  rpc SearchByShortUrl(SearchByShortUrlRequest) returns (UrlShortenerProto);
+  rpc IncreaseAccessed(IncreaseAccessedRequest) returns (google.protobuf.Empty);
+}
